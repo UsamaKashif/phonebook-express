@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan')
+const bodyParser = require('body-parser')
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -41,8 +42,9 @@ const unknownEndpoint = (request, response) => {
   }
   
 
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(morgan('tiny'))
+app.use(express.static('build'))
 // Configure morgan so that it also shows the data sent in HTTP POST requests:
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 // app.use(unknownEndpoint);
